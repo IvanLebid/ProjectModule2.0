@@ -3,13 +3,17 @@ package Organism.Animal;
 import Organism.Organism;
 
 public abstract class Animal extends Organism {
-    public int speedMax;
-    public double foodWeight;
 
-    public Animal(int weight, int countPerCell, int speedMax, double foodWeight) {
+    public int speedMax;
+    public double famine;
+    public double FOOD_WEIGHT;
+
+
+    public Animal(int weight, int countPerCell, int speedMax, double FOOD_WEIGHT, double famine) {
         super(weight, countPerCell);
         this.speedMax = speedMax;
-        this.foodWeight = foodWeight;
+        this.FOOD_WEIGHT = FOOD_WEIGHT;
+        this.famine = famine;
     }
 
     public int getSpeedMax() {
@@ -17,11 +21,17 @@ public abstract class Animal extends Organism {
     }
 
     public double getFoodWeight() {
-        return this.foodWeight;
+        return this.FOOD_WEIGHT;
     }
 
-    public void eat(Organism food) {
+    public void eat( Organism food) {
         food.setCountPerCell(food.countPerCell - 1);
+        if(food.weight >= FOOD_WEIGHT){
+            famine = FOOD_WEIGHT;
+        }else {
+            famine += food.weight;
+        }
+
     }
 
     public void move() {
